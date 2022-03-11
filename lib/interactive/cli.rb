@@ -23,6 +23,9 @@ module Interactive
 
     def create
       project_name = @prompt.ask("What is your project name? ", required: true)
+
+      project_types = %w[App API]
+      project_type = @prompt.select("Choose project type? ", project_types, required: true)
     end
 
     def greet
