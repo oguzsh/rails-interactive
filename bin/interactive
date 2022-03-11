@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "rails/interactive"
+require "interactive"
 
-Interactive::CLI.new.call
+Interactive::CLI.new.process_argv(ARGV.first)
+

@@ -12,3 +12,5 @@ gem "rspec", "~> 3.0"
 gem "rubocop", "~> 1.7"
 
 gem "byebug", "~> 11.1.2"
+
+gem "tty-prompt"

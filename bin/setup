@@ -2,6 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 set -vx
+chmod u+x bin/interactive
 
 bundle install
 

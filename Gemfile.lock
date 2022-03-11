@@ -1,0 +1,73 @@
+PATH
+  remote: .
+  specs:
+    rails-interactive (0.1.0)
+      tty-prompt
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.2)
+    byebug (11.1.3)
+    diff-lcs (1.5.0)
+    parallel (1.21.0)
+    parser (3.1.1.0)
+      ast (~> 2.4.1)
+    pastel (0.8.0)
+      tty-color (~> 0.5)
+    rainbow (3.1.1)
+    rake (13.0.6)
+    regexp_parser (2.2.1)
+    rexml (3.2.5)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
+    rubocop (1.26.0)
+      parallel (~> 1.10)
+      parser (>= 3.1.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.16.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.16.0)
+      parser (>= 3.1.1.0)
+    ruby-progressbar (1.11.0)
+    tty-color (0.6.0)
+    tty-cursor (0.7.1)
+    tty-prompt (0.23.1)
+      pastel (~> 0.8)
+      tty-reader (~> 0.8)
+    tty-reader (0.9.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.8)
+      wisper (~> 2.0)
+    tty-screen (0.8.1)
+    unicode-display_width (2.1.0)
+    wisper (2.0.1)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  bundler
+  byebug (~> 11.1.2)
+  rails-interactive!
+  rake (~> 13.0)
+  rspec (~> 3.0)
+  rubocop (~> 1.7)
+  tty-prompt
+
+BUNDLED WITH
+   2.2.22
