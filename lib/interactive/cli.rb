@@ -26,6 +26,9 @@ module Interactive
 
       project_types = %w[App API]
       project_type = @prompt.select("Choose project type? ", project_types, required: true)
+
+      db_types = %w[SQLite MySQL PostgreSQL]
+      db_type = @prompt.select("Choose database? ", db_types, required: true)
     end
 
     def greet
