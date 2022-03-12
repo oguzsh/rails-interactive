@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "interactive/prompt"
-require "interactive/utils"
+require "interactive/message"
 
 module Interactive
   # CLI class for the interactive CLI module
@@ -13,10 +13,10 @@ module Interactive
     def perform(key)
       case key
       when "new"
-        Utils.greet
+        Message.greet
         initialize_project
       when "help"
-        Utils.help
+        Message.help
       else
         puts "Invalid parameter"
       end
@@ -31,14 +31,19 @@ module Interactive
       database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
       @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
 
-      create_project
+      create
     end
 
-    def create_project
-      system(parse_inputs)
+    def create
+      # Install gems
+      system("bin/setup")
+      # Create project
+      system(setup)
+      # Prepare project requirements and give instructions
+      Message.prepare
     end
 
-    def parse_inputs
+    def setup
       base = "rails new"
       cmd = ""
 
