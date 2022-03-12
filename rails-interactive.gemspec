@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "byebug", "~> 11.1.2"
+  spec.add_development_dependency "colorize"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
