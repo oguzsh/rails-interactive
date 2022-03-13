@@ -7,7 +7,7 @@ module Interactive
   class Message
     def self.greet
       render_ascii
-      puts "Welcome to Rails Interactive CLI - #{Interactive::VERSION}".colorize(:yellow)
+      puts "Welcome to Rails Interactive CLI".colorize(:yellow)
     end
 
     def self.help
