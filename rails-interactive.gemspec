@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/rails-interactive/version"
+require_relative "lib/rails_interactive/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rails-interactive"
