@@ -20,6 +20,8 @@ jobs:
           release-type: ruby
           package-name: rails-interactive
           version-file: 'lib/rails_interactive/version.rb'
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
       - name: Set up Ruby
