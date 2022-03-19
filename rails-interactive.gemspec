@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/interactive/version"
+require_relative "lib/rails_interactive/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rails-interactive"
-  spec.version       = Interactive::VERSION
+  spec.version       = RailsInteractive::VERSION
   spec.authors       = ["Oguzhan Ince"]
   spec.email         = ["oguzhan824@gmail.com"]
 
