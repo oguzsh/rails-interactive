@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "interactive/prompt"
-require "interactive/message"
+require "rails-interactive/prompt"
+require "rails-interactive/message"
 
-module Interactive
+module RailsInteractive
   # CLI class for the interactive CLI module
   class CLI
     def initialize

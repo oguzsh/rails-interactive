@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Interactive do
+RSpec.describe RailsInteractive do
   it "has a version number" do
-    expect(Interactive::VERSION).not_to be nil
+    expect(RailsInteractive::VERSION).not_to be nil
   end
 
   it "does something useful" do
