@@ -1,4 +1,4 @@
-name: Release
+name: Release and Publish
 on:
   push:
     branches:
@@ -7,14 +7,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.0.0
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Run tests'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        id: release
+        with:
+          release-type: ruby
+          package-name: rails-interactive
+          bump-minor-pre-major: true
+          version-file: 'lib/interactive/version.rb'
       - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        if: ${{ steps.release.outputs.release_created }}
         with:
           ruby-version: 3.0.2
           bundler-cache: true
       - name: Bundle Install
         run: bundle install
+        if: ${{ steps.release.outputs.release_created }}
       - name: Set Credentials
         run: |
           mkdir -p $HOME/.gem
@@ -22,17 +39,20 @@ jobs:
           chmod 0600 $HOME/.gem/credentials
           printf -- "---\n:github: Bearer ${GITHUB_TOKEN}\n" > $HOME/.gem/credentials
           printf -- "---\n:rubygems_api_key: ${RUBYGEMS_TOKEN}\n" > $HOME/.gem/credentials
+        if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           RUBYGEMS_TOKEN: '${{secrets.RUBYGEMS_TOKEN}}'
       - name: Publish to GitHub Packages
         run: |
           export OWNER=$( echo ${{ github.repository }} | cut -d "/" -f 1 )
-          gem build station.gemspec
+          gem build *.gemspec
           gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
           gem push *.gem
+        if: ${{ steps.release.outputs.release_created }}
       - name: Publish to RubyGems
         run: |
           gem build *.gemspec
           gem push --host https://rubygems.pkg.github.com/${OWNER} *.gem
           gem push *.gem
+        if: ${{ steps.release.outputs.release_created }}
