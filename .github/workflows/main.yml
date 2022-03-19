@@ -1,16 +1,37 @@
-name: Ruby
-
-on: [push,pull_request]
-
+name: Publish
+on:
+  push:
+    tags:
+      - 'v*'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0.2
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+      - uses: actions/checkout@v2
+      - name: Ruby gem cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle Setup
+        run: |
+          gem install --no-document bundler
+          bundle config path ${{ github.workspace }}/vendor/bundle
+      - name: Bundle Install
+        run: bundle install --jobs 4 --retry 3
+      - name: Set Credentials
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:github: Bearer ${GITHUB_TOKEN}\n" > $HOME/.gem/credentials
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Publish to GitHub Packages
+        run: |
+          export OWNER=$( echo ${{ github.repository }} | cut -d "/" -f 1 )
+          gem build station.gemspec
+          gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+          gem push *.gem
