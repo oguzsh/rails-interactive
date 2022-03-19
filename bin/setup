@@ -2,6 +2,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 set -vx
-chmod u+x bin/interactive
+chmod u+x bin/rails-interactive
 
 bundle install

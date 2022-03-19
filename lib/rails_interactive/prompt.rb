@@ -2,7 +2,7 @@
 
 require "tty/prompt"
 
-module Interactive
+module RailsInteractive
   # Prompt class for commands
   class Prompt
     # Create a new instance

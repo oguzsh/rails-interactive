@@ -2,7 +2,7 @@
 
 require "colorize"
 
-module Interactive
+module RailsInteractive
   # Utils class for the interactive CLI module
   class Message
     def self.greet
