@@ -12,7 +12,7 @@ $ gem install rails-interactive
 ## Usage
 
 ```bash
-$ interactive new
+$ rails-interactive new
 ```
 
 ## Development
