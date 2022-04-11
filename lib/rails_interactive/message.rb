@@ -32,10 +32,7 @@ module RailsInteractive
     def self.prepare
       puts ""
       puts "Project created successfully ✅".colorize(:green)
-      puts "Go to your project folder and run :".colorize(:green)
-      puts "> bundle install && yarn".colorize(:yellow)
-      puts "After that, ready to go 🎉".colorize(:green)
-
+      puts "Go to your project folder and ready to go 🎉".colorize(:green)
       rails_commands
     end
 

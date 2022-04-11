@@ -30,6 +30,8 @@ module RailsInteractive
         @prompt.ask(@msg, required: @required)
       when "select"
         @prompt.select(@msg, @options, required: @required)
+      when "multi_select"
+        @prompt.multi_select(@msg, @options)
       else
         puts "Invalid parameter"
       end
