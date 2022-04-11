@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 run "bundle add devise"
 Bundler.with_unbundled_env { run "bundle install" }
 

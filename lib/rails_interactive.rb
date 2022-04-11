@@ -66,7 +66,7 @@ module RailsInteractive
     end
 
     def copy_templates_to_project
-      FileUtils.cp_r "#{File.expand_path(File.dirname(__FILE__))}/rails_interactive/templates", "./#{@inputs[:name]}"
+      FileUtils.cp_r "#{__dir__}/rails_interactive/templates", "./#{@inputs[:name]}"
     end
   end
 end
