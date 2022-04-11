@@ -9,6 +9,7 @@ run "bundle add redis" unless file_contains? "Gemfile", "Gem 'redis'"
 
 Bundler.with_unbundled_env { run "bundle install" }
 
+# rubocop:disable Naming/HeredocDelimiterNaming
 application do
   <<~EOF
     config.active_job.queue_adapter = :sidekiq
@@ -26,5 +27,6 @@ inject_into_file "config/routes.rb" do
     end
   EOF
 end
+# rubocop:enable Naming/HeredocDelimiterNaming
 
 route 'mount Sidekiq::Web => "/sidekiq"'
