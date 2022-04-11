@@ -32,7 +32,7 @@ module RailsInteractive
       database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
       @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
 
-      features = %w[devise cancancan omniauth]
+      features = %w[devise cancancan omniauth pundit]
       @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
 
       create
