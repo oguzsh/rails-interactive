@@ -57,3 +57,5 @@ file "app/controllers/omniauth_controller.rb", <<~CODE
 
   end
 CODE
+
+puts "IMPORTANT: Add devise_for :users, controllers: { omniauth_callbacks: 'omniauth' } to your routes.rb"
