@@ -29,6 +29,7 @@ module RailsInteractive
       database
       features
       code_quality_tool
+      admin_panel
 
       create
     end
@@ -50,6 +51,9 @@ module RailsInteractive
 
       # Code Quality Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
+
+      # Admin Panel Template
+      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
 
       # Prepare project requirements and give instructions
       Message.prepare
@@ -96,6 +100,13 @@ module RailsInteractive
 
       @inputs[:code_quality_tool] =
         Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
+    end
+
+    def admin_panel
+      admin_panel = { "RailsAdmin" => "rails_admin" }
+
+      @inputs[:admin_panel] =
+        Prompt.new("Choose project admin panel: ", "select", admin_panel).perform
     end
   end
 end
