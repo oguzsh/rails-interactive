@@ -1,5 +1,6 @@
 run "bundle add activeadmin"
 run "bundle add bcrypt"
+Bundler.with_unbundled_env { run "bundle" }
 
 if yes?("Do you want to install Devise?(prefered)[y/n]") && !defined?(Devise)
   run "bundle add devise"
