@@ -24,19 +24,11 @@ module RailsInteractive
     end
 
     def initialize_project
-      @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
-
-      types = { "App" => "", "API" => "--api" }
-      @inputs[:type] = Prompt.new("Choose project type: ", "select", types, required: true).perform
-
-      database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
-      @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
-
-      features = %w[devise cancancan omniauth pundit brakeman sidekiq]
-      @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
-
-      code_quality_tool = { "Rubocop" => "rubocop" }
-      @inputs[:code_quality_tool] = Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
+      name
+      type
+      database
+      features
+      code_quality_tool
 
       create
     end
@@ -74,6 +66,36 @@ module RailsInteractive
 
     def copy_templates_to_project
       FileUtils.cp_r "#{__dir__}/rails_interactive/templates", "./#{@inputs[:name]}"
+    end
+
+    private
+
+    def name
+      @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
+    end
+
+    def type
+      types = { "App" => "", "API" => "--api" }
+      @inputs[:type] = Prompt.new("Choose project type: ", "select", types, required: true).perform
+    end
+
+    def database
+      database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
+
+      @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
+    end
+
+    def features
+      features = %w[devise cancancan omniauth pundit brakeman sidekiq]
+
+      @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
+    end
+
+    def code_quality_tool
+      code_quality_tool = { "Rubocop" => "rubocop" }
+
+      @inputs[:code_quality_tool] =
+        Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
     end
   end
 end
