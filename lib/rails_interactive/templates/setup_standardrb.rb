@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 gem_group :development, :test do
-  gem "standart"
+  gem "standard"
 end
 
 Bundler.with_unbundled_env { run "bundle install" }
