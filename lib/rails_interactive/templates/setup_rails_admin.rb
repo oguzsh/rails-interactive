@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+run "rails db:prepare"
 run "bundle add rails_admin"
 
 Bundler.with_unbundled_env { run "bundle install" }
