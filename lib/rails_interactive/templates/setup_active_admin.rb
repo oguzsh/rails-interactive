@@ -3,6 +3,7 @@ run "bundle add bcrypt"
 Bundler.with_unbundled_env { run "bundle" }
 
 if yes?("Do you want to install Devise?(prefered)[y/n]") && !defined?(Devise)
+  run "rails db:create"
   run "bundle add devise"
   rails_command "generate active_admin:install"
 else
