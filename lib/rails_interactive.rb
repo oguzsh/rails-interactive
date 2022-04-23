@@ -92,7 +92,7 @@ module RailsInteractive
     end
 
     def code_quality_tool
-      code_quality_tool = { "Rubocop" => "rubocop" }
+      code_quality_tool = { "Rubocop" => "rubocop", "StandardRB" => "standardrb" }
 
       @inputs[:code_quality_tool] =
         Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
