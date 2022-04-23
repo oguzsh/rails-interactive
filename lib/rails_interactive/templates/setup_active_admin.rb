@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 def active_admin_install_without_devise
   model = ask("What is the user model you want to use for Active Admin? (ex: Admin)")
   rails_command "generate active_admin:install #{model.capitalize}" if model
