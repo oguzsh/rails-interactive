@@ -35,6 +35,9 @@ module RailsInteractive
       features = %w[devise cancancan omniauth pundit brakeman sidekiq]
       @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
 
+      code_quality_tool = { "Rubocop" => "rubocop" }
+      @inputs[:code_quality_tool] = Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
+
       create
     end
 
@@ -48,9 +51,13 @@ module RailsInteractive
 
       # Move to project folder and install gems
       Dir.chdir "./#{@inputs[:name]}"
+
       @inputs[:features].each do |feature|
         system("bin/rails app:template LOCATION=templates/setup_#{feature}.rb")
       end
+
+      # Code Quality Template
+      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
 
       # Prepare project requirements and give instructions
       Message.prepare
@@ -60,7 +67,7 @@ module RailsInteractive
       base = "rails new"
       cmd = ""
 
-      @inputs.each { |_key, value| cmd += "#{value} " }
+      @inputs.first(3).each { |_key, value| cmd += "#{value} " }
 
       "#{base} #{cmd}".strip!
     end
