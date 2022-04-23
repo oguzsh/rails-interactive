@@ -103,10 +103,10 @@ module RailsInteractive
     end
 
     def admin_panel
-      admin_panel = { "RailsAdmin" => "rails_admin" }
+      admin_panel = { "RailsAdmin" => "rails_admin", "Avo" => "avo" }
 
       @inputs[:admin_panel] =
-        Prompt.new("Choose project admin panel: ", "select", admin_panel).perform
+        Prompt.new("Choose project's admin panel: ", "select", admin_panel).perform
     end
   end
 end
