@@ -37,6 +37,7 @@ module RailsInteractive
       create
     end
 
+    # rubocop:disable Metrics/MethodLength
     def create
       # Install gems
       system("bin/setup")
@@ -69,6 +70,7 @@ module RailsInteractive
       # Prepare project requirements and give instructions
       Message.prepare
     end
+    # rubocop:enable Metrics/MethodLength
 
     def setup
       base = "rails new"
