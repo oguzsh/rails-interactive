@@ -32,6 +32,7 @@ module RailsInteractive
       template_engines
       admin_panel
       testing_tools
+      development_tools
 
       create
     end
@@ -61,6 +62,9 @@ module RailsInteractive
 
       # Testing tools Template
       handle_multi_options(key: :testing_tools)
+
+      # Development tools Template
+      handle_multi_options(key: :development_tools)
 
       # Prepare project requirements and give instructions
       Message.prepare
@@ -134,6 +138,13 @@ module RailsInteractive
 
       @inputs[:template_engine] =
         Prompt.new("Choose project's template engine: ", "select", template_engines).perform
+    end
+
+    def development_tools
+      development_tools = %w[bullet]
+
+      @inputs[:development_tools] =
+        Prompt.new("Choose project's development tools: ", "multi_select", development_tools).perform
     end
   end
 end
