@@ -99,7 +99,7 @@ module RailsInteractive
     end
 
     def features
-      features = %w[devise cancancan omniauth pundit brakeman sidekiq graphql]
+      features = %w[devise cancancan omniauth pundit brakeman sidekiq graphql kaminari]
 
       @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
     end
