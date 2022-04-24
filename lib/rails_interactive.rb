@@ -143,7 +143,7 @@ module RailsInteractive
     end
 
     def development_tools
-      development_tools = %w[bullet faker friendly_id better_errors]
+      development_tools = %w[bullet faker friendly_id better_errors letter_opener]
 
       @inputs[:development_tools] =
         Prompt.new("Choose project's development tools: ", "multi_select", development_tools).perform
