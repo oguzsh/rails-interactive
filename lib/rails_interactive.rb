@@ -45,9 +45,8 @@ module RailsInteractive
       # Move to project folder and install gems
       Dir.chdir "./#{@inputs[:name]}"
 
-      @inputs[:features].each do |feature|
-        system("bin/rails app:template LOCATION=templates/setup_#{feature}.rb")
-      end
+      # Features Templates
+      handle_multi_options(key: :features)
 
       # Code Quality Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
@@ -73,6 +72,12 @@ module RailsInteractive
     end
 
     private
+
+    def handle_multi_options(key:)
+      @inputs[key].each do |value|
+        system("bin/rails app:template LOCATION=templates/setup_#{value}.rb")
+      end
+    end
 
     def name
       @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform

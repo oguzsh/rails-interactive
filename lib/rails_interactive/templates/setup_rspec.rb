@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 run "spring stop"
 
 gem_group :development, :test do
