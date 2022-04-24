@@ -29,6 +29,7 @@ module RailsInteractive
       database
       features
       code_quality_tool
+      template_engines
       admin_panel
       testing_tools
 
@@ -51,6 +52,9 @@ module RailsInteractive
 
       # Code Quality Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
+
+      # HTML Template Engines
+      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:template_engine]}.rb")
 
       # Admin Panel Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
@@ -123,6 +127,13 @@ module RailsInteractive
 
       @inputs[:testing_tools] =
         Prompt.new("Choose project's testing tools: ", "multi_select", testing_tools).perform
+    end
+
+    def template_engines
+      template_engines = { "HAML" => "haml" }
+
+      @inputs[:template_engine] =
+        Prompt.new("Choose project's template engine: ", "select", template_engines).perform
     end
   end
 end
