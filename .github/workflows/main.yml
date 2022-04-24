@@ -46,7 +46,7 @@ jobs:
         run: |
           export OWNER=$( echo ${{ github.repository }} | cut -d "/" -f 1 )
           gem build *.gemspec
-          gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+          gem push --KEY github --host https://rubygems.pkg.github.com/oguzsh *.gem
         if: ${{ steps.release.outputs.release_created }}
       - name: Publish to RubyGems
         run: |
