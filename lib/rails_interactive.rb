@@ -30,6 +30,7 @@ module RailsInteractive
       features
       code_quality_tool
       admin_panel
+      testing_tools
 
       create
     end
@@ -53,6 +54,9 @@ module RailsInteractive
 
       # Admin Panel Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
+
+      # Testing tools Template
+      handle_multi_options(key: :testing_tools)
 
       # Prepare project requirements and give instructions
       Message.prepare
@@ -112,6 +116,13 @@ module RailsInteractive
 
       @inputs[:admin_panel] =
         Prompt.new("Choose project's admin panel: ", "select", admin_panel).perform
+    end
+
+    def testing_tools
+      testing_tools = %w[rspec]
+
+      @inputs[:testing_tools] =
+        Prompt.new("Choose project's testing tools: ", "multi_select", testing_tools).perform
     end
   end
 end
