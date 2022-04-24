@@ -130,7 +130,7 @@ module RailsInteractive
     end
 
     def template_engines
-      template_engines = { "HAML" => "haml" }
+      template_engines = { "HAML" => "haml", "SLIM" => "slim" }
 
       @inputs[:template_engine] =
         Prompt.new("Choose project's template engine: ", "select", template_engines).perform
