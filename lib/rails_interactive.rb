@@ -30,6 +30,7 @@ module RailsInteractive
       features
       code_quality_tool
       admin_panel
+      testing_tools
 
       create
     end
@@ -45,15 +46,17 @@ module RailsInteractive
       # Move to project folder and install gems
       Dir.chdir "./#{@inputs[:name]}"
 
-      @inputs[:features].each do |feature|
-        system("bin/rails app:template LOCATION=templates/setup_#{feature}.rb")
-      end
+      # Features Templates
+      handle_multi_options(key: :features)
 
       # Code Quality Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
 
       # Admin Panel Template
       system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
+
+      # Testing tools Template
+      handle_multi_options(key: :testing_tools)
 
       # Prepare project requirements and give instructions
       Message.prepare
@@ -73,6 +76,12 @@ module RailsInteractive
     end
 
     private
+
+    def handle_multi_options(key:)
+      @inputs[key].each do |value|
+        system("bin/rails app:template LOCATION=templates/setup_#{value}.rb")
+      end
+    end
 
     def name
       @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
@@ -107,6 +116,13 @@ module RailsInteractive
 
       @inputs[:admin_panel] =
         Prompt.new("Choose project's admin panel: ", "select", admin_panel).perform
+    end
+
+    def testing_tools
+      testing_tools = %w[rspec]
+
+      @inputs[:testing_tools] =
+        Prompt.new("Choose project's testing tools: ", "multi_select", testing_tools).perform
     end
   end
 end
