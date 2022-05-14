@@ -40,7 +40,7 @@ module RailsInteractive
       system(setup)
 
       # Prepare project requirements and give instructions
-      Dir.chdir "./#{inputs[:name]}"
+      Dir.chdir "./#{@inputs[:name]}"
       sign_project
       Message.prepare
     end
@@ -74,7 +74,7 @@ module RailsInteractive
     def css_frameworks
       css_frameworks = { "None" => "", "Bootstrap" => "--css=bootstrap", "Tailwind" => "--css=tailwind" }
 
-      @inputs[:css_frameworks] =
+      @inputs[:css_framework] =
         Prompt.new("Choose project's CSS framework: ", "select", css_frameworks, required: true).perform
     end
 
