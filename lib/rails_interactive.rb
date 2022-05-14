@@ -41,6 +41,8 @@ module RailsInteractive
 
       # Prepare project requirements and give instructions
       Dir.chdir "./#{@inputs[:name]}"
+      system("rails db:create")
+
       sign_project
       Message.prepare
     end
