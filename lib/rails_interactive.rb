@@ -27,72 +27,34 @@ module RailsInteractive
       name
       type
       database
-      features
-      code_quality_tool
-      template_engines
-      admin_panel
-      testing_tools
-      development_tools
+      css_frameworks
 
       create
     end
 
-    # rubocop:disable Metrics/MethodLength
     def create
       # Install gems
       system("bin/setup")
+
       # Create project
       system(setup)
 
-      copy_templates_to_project
-
-      # Move to project folder and install gems
-      Dir.chdir "./#{@inputs[:name]}"
-
-      # Features Templates
-      handle_multi_options(key: :features)
-
-      # Code Quality Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
-
-      # HTML Template Engines
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:template_engine]}.rb")
-
-      # Admin Panel Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
-
-      # Testing tools Template
-      handle_multi_options(key: :testing_tools)
-
-      # Development tools Template
-      handle_multi_options(key: :development_tools)
-
       # Prepare project requirements and give instructions
+      Dir.chdir "./#{inputs[:name]}"
       sign_project
       Message.prepare
     end
-    # rubocop:enable Metrics/MethodLength
 
     def setup
       base = "rails new"
       cmd = ""
 
-      @inputs.first(3).each { |_key, value| cmd += "#{value} " }
+      @inputs.each { |_key, value| cmd += "#{value} " }
 
       "#{base} #{cmd}".strip!
     end
 
-    def copy_templates_to_project
-      FileUtils.cp_r "#{__dir__}/rails_interactive/templates", "./#{@inputs[:name]}"
-    end
-
     private
-
-    def handle_multi_options(key:)
-      @inputs[key].each do |value|
-        system("bin/rails app:template LOCATION=templates/setup_#{value}.rb")
-      end
-    end
 
     def name
       @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
@@ -109,45 +71,11 @@ module RailsInteractive
       @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
     end
 
-    def features
-      features = %w[devise cancancan omniauth pundit brakeman sidekiq graphql kaminari]
+    def css_frameworks
+      css_frameworks = { "None" => "", "Bootstrap" => "--css=bootstrap", "Tailwind" => "--css=tailwind" }
 
-      @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
-    end
-
-    def code_quality_tool
-      code_quality_tool = { "Rubocop" => "rubocop", "StandardRB" => "standardrb" }
-
-      @inputs[:code_quality_tool] =
-        Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
-    end
-
-    def admin_panel
-      admin_panel = { "RailsAdmin" => "rails_admin", "Avo" => "avo" }
-
-      @inputs[:admin_panel] =
-        Prompt.new("Choose project's admin panel: ", "select", admin_panel).perform
-    end
-
-    def testing_tools
-      testing_tools = %w[rspec]
-
-      @inputs[:testing_tools] =
-        Prompt.new("Choose project's testing tools: ", "multi_select", testing_tools).perform
-    end
-
-    def template_engines
-      template_engines = { "HAML" => "haml", "SLIM" => "slim" }
-
-      @inputs[:template_engine] =
-        Prompt.new("Choose project's template engine: ", "select", template_engines).perform
-    end
-
-    def development_tools
-      development_tools = %w[bullet faker friendly_id better_errors letter_opener awesome_print]
-
-      @inputs[:development_tools] =
-        Prompt.new("Choose project's development tools: ", "multi_select", development_tools).perform
+      @inputs[:css_frameworks] =
+        Prompt.new("Choose project's CSS framework: ", "select", css_frameworks, required: true).perform
     end
 
     def sign_project
