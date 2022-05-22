@@ -197,6 +197,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     wisper (2.0.1)
+    yaml (0.2.0)
     zeitwerk (2.5.4)
 
 PLATFORMS
@@ -213,6 +214,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   rubocop (~> 1.7)
   tty-prompt
+  yaml
 
 BUNDLED WITH
    2.2.22
