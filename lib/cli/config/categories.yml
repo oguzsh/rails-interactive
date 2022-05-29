@@ -1,0 +1,51 @@
+---
+-
+    name: authentication
+    weight: 1
+    type: "multi_select"
+    required: false
+-
+    name: authorization
+    weight: 2
+    type: "select"
+    required: false
+-
+    name: testing
+    weight: 3
+    type: "select"
+    required: false
+-
+    name: template_engine
+    weight: 4
+    type: "select"
+    required: false
+-
+    name: code_quality
+    weight: 5
+    type: "select"
+    required: false
+-
+    name: background_job
+    weight: 6
+    type: "select"
+    required: false
+-
+    name: security
+    weight: 7
+    type: "select"
+    required: false
+-
+    name: admin_panel
+    weight: 8
+    type: "select"
+    required: false
+-
+    name: features
+    weight: 9
+    type: "multi_select"
+    required: false
+-
+    name: development
+    weight: 10
+    type: "multi_select"
+    required: false
