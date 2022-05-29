@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
-require "rails_interactive/prompt"
-require "rails_interactive/message"
-require "fileutils"
+require "cli/prompt"
+require "cli/message"
+require "cli/commands"
+require "cli/categories"
+require "cli/utils"
 
 module RailsInteractive
   # CLI class for the interactive CLI module
   class CLI
     def initialize
       @inputs = {}
+      @commands = Commands.new
+      @categories = Categories.new
     end
 
     def perform(key)
@@ -23,55 +27,33 @@ module RailsInteractive
       end
     end
 
+    private
+
+    def categories_with_commands
+      @categories.all.each do |category|
+        commands = []
+        @commands.all.each { |command| commands << command if command["category"] == category["name"] }
+        category["commands"] = commands
+      end
+    end
+
     def initialize_project
       name
       type
       database
-      features
-      code_quality_tool
-      template_engines
-      admin_panel
-      testing_tools
-      development_tools
 
-      create
+      categories_with_commands.each do |category|
+        category_name = category["name"]
+        category_type = category["type"]
+        category_command_list = create_command_list(category["commands"], category_type)
+
+        @inputs[category_name.to_sym] =
+          Prompt.new("Choose #{Utils.humanize(category_name)} gems: ", category_type.to_s,
+                     category_command_list).perform
+      end
+
+      create_project
     end
-
-    # rubocop:disable Metrics/MethodLength
-    def create
-      # Install gems
-      system("bin/setup")
-      # Create project
-      system(setup)
-
-      copy_templates_to_project
-
-      # Move to project folder and install gems
-      Dir.chdir "./#{@inputs[:name]}"
-
-      # Features Templates
-      handle_multi_options(key: :features)
-
-      # Code Quality Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
-
-      # HTML Template Engines
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:template_engine]}.rb")
-
-      # Admin Panel Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
-
-      # Testing tools Template
-      handle_multi_options(key: :testing_tools)
-
-      # Development tools Template
-      handle_multi_options(key: :development_tools)
-
-      # Prepare project requirements and give instructions
-      sign_project
-      Message.prepare
-    end
-    # rubocop:enable Metrics/MethodLength
 
     def setup
       base = "rails new"
@@ -79,81 +61,64 @@ module RailsInteractive
 
       @inputs.first(3).each { |_key, value| cmd += "#{value} " }
 
-      "#{base} #{cmd}".strip!
+      "#{base} #{cmd} -q".strip!
     end
 
-    def copy_templates_to_project
-      FileUtils.cp_r "#{__dir__}/rails_interactive/templates", "./#{@inputs[:name]}"
-    end
+    def create_project
+      # Install gems
+      system("bin/setup")
+      # Create project
+      system(setup)
+      #  Copy template files to project folder
+      Utils.copy_templates_to_project(@inputs[:name])
+      # Move to project folder and install gems
+      @inputs.each do |key, value|
+        next if %i[name type database].include?(key) || value.nil? || if value.is_a?(Array) && value.empty?
 
-    private
+                                                                        if value.is_a?(Array)
+                                                                          Utils.handle_multi_options(key.to_sym)
+                                                                        end
+                                                                        if value.is_a?(Hash)
+                                                                          Utils.handle_option(key.to_sym)
+                                                                        end
+                                                                      end
 
-    def handle_multi_options(key:)
-      @inputs[key].each do |value|
-        system("bin/rails app:template LOCATION=templates/setup_#{value}.rb")
+        # Prepare project requirements and give instructions
+        Utils.sign_project
+        Message.prepare
       end
     end
 
+    def create_command_list(commands, category_type)
+      return nil if commands.nil? || category_type.nil?
+
+      list = category_type == "select" ? {} : []
+
+      commands.each do |command|
+        if list.is_a?(Hash)
+          list["None"] = nil
+          list[command["name"]] = command["identifier"]
+        else
+          list << command["identifier"]
+        end
+      end
+
+      list
+    end
+
     def name
-      @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
+      @inputs[:name] = Prompt.new("Project name: ", "ask", required: true).perform
     end
 
     def type
-      types = { "App" => "", "API" => "--api" }
-      @inputs[:type] = Prompt.new("Choose project type: ", "select", types, required: true).perform
+      types = { "App" => "", "Api" => "--api" }
+      @inputs[:type] = Prompt.new("Type: ", "select", types, required: true).perform
     end
 
     def database
       database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
 
-      @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
-    end
-
-    def features
-      features = %w[devise cancancan omniauth pundit brakeman sidekiq graphql kaminari]
-
-      @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
-    end
-
-    def code_quality_tool
-      code_quality_tool = { "Rubocop" => "rubocop", "StandardRB" => "standardrb" }
-
-      @inputs[:code_quality_tool] =
-        Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
-    end
-
-    def admin_panel
-      admin_panel = { "RailsAdmin" => "rails_admin", "Avo" => "avo" }
-
-      @inputs[:admin_panel] =
-        Prompt.new("Choose project's admin panel: ", "select", admin_panel).perform
-    end
-
-    def testing_tools
-      testing_tools = %w[rspec]
-
-      @inputs[:testing_tools] =
-        Prompt.new("Choose project's testing tools: ", "multi_select", testing_tools).perform
-    end
-
-    def template_engines
-      template_engines = { "HAML" => "haml", "SLIM" => "slim" }
-
-      @inputs[:template_engine] =
-        Prompt.new("Choose project's template engine: ", "select", template_engines).perform
-    end
-
-    def development_tools
-      development_tools = %w[bullet faker friendly_id better_errors letter_opener awesome_print]
-
-      @inputs[:development_tools] =
-        Prompt.new("Choose project's development tools: ", "multi_select", development_tools).perform
-    end
-
-    def sign_project
-      file = "README.md"
-      msg = "\n> This project was generated by [Rails Interactive CLI](https://github.com/oguzsh/rails-interactive)"
-      File.write(file, msg, mode: "a+")
+      @inputs[:database] = Prompt.new("Database: ", "select", database_types, required: true).perform
     end
   end
 end
