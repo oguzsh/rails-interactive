@@ -11,3 +11,12 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 12
+
+Metrics/CyclomaticComplexity:
+  Max: 25
