@@ -7,7 +7,7 @@ module RailsInteractive
     # Categories class for the interactive CLI module
     class Categories
       def initialize
-        @categories = YAML.load_file("#{__dir__}/categories.yml").uniq
+        @categories = YAML.load_file("#{__dir__}/config/categories.yml").uniq
       end
 
       def all
