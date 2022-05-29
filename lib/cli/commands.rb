@@ -7,7 +7,7 @@ module RailsInteractive
     # Commands class for the interactive CLI module
     class Commands
       def initialize
-        @commands = YAML.load_file("lib/cli/commands.yml").uniq
+        @commands = YAML.load_file("#{__dir__}/commands.yml").uniq
       end
 
       def all
