@@ -1,0 +1,128 @@
+---
+-
+  identifier: rubocop
+  name: Rubocop
+  category: code_quality
+  description: "A Ruby static code analyzer and formatter, based on the community Ruby style guide. For details: https://github.com/rubocop/rubocop"
+  dependencies: null
+-
+  identifier: graphql
+  name: GraphQL
+  category: features
+  description: "Ruby implementation of GraphQL. For details: https://github.com/rmosolgo/graphql-ruby"
+  dependencies: null
+-
+  identifier: avo
+  name: Avo
+  category: admin_panel
+  description: "Configuration-based, no-maintenance, extendable Ruby on Rails admin. For details: https://github.com/avo-hq/avo"
+  dependencies: null
+-
+  identifier: awesome_print
+  name: AwesomePrint
+  category: development
+  description: "Pretty print your Ruby objects with style. For details: https://github.com/awesome-print/awesome_print"
+  dependencies: null
+-
+  identifier: better_errors
+  name: BetterErrors
+  category: development
+  description: "Better error page for Rack apps. For details: https://github.com/BetterErrors/better_errors"
+  dependencies: null
+-
+  identifier: brakeman
+  name: Brakeman
+  category: security
+  description: "A static analysis security vulnerability scanner for Ruby on Rails applications. For details: https://github.com/presidentbeef/brakeman"
+  dependencies: null
+-
+  identifier: bullet
+  name: Bullet
+  category: development
+  description: "Bullet helps to solve N+1 queries and unused eager loading. For details: https://github.com/flyerhzm/bullet"
+  dependencies: null
+-
+  identifier: cancancan
+  name: CanCanCan
+  category: authorization
+  description: "CanCanCan is an authorization library for Ruby and Ruby on Rails which restricts what resources a given user is allowed to access. For details: https://github.com/CanCanCommunity/cancancan"
+  dependencies: null
+-
+  identifier: devise
+  name: Devise
+  category: authentication
+  description: "Flexible authentication solution for Rails with Warden. For details: https://github.com/heartcombo/devise"
+  dependencies: null
+-
+  identifier: faker
+  name: Faker
+  category: development
+  description: "A library for generating fake data such as names, addresses, and phone numbers. For details: https://github.com/faker-ruby/faker"
+  dependencies: null
+-
+  identifier: friendly_id
+  name: FriendlyID
+  category: development
+  description: "FriendlyId is the 'Swiss Army bulldozer' of slugging and permalink plugins for Active Record. It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids. For details: https://github.com/norman/friendly_id"
+  dependencies: null
+-
+  identifier: haml
+  name: Haml
+  category: template_engine
+  description: "HTML Abstraction Markup Language. For details: https://github.com/haml/haml"
+  dependencies: null
+-
+  identifier: kaminari
+  name: Kaminari
+  category: features
+  description: "A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps. For details: https://github.com/kaminari/kaminari"
+  dependencies: null
+-
+  identifier: letter_opener
+  name: LetterOpener
+  category: development
+  description: "Preview email in the default browser instead of sending it on development mode. For details: https://github.com/ryanb/letter_opener"
+  dependencies: null
+-
+  identifier: omniauth
+  name: OmniAuth
+  category: authentication
+  description: "OmniAuth is a flexible authentication system utilizing Rack middleware. For details: https://github.com/omniauth/omniauth"
+  dependencies:
+    - devise
+-
+  identifier: pundit
+  name: Pundit
+  category: authorization
+  description: "Minimal authorization through OO design and pure Ruby classes. For details: https://github.com/varvet/pundit"
+  dependencies: null
+-
+  identifier: rails_admin
+  name: RailsAdmin
+  category: admin_panel
+  description: "RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data. For details: https://github.com/railsadminteam/rails_admin"
+  dependencies: null
+-
+  identifier: rspec
+  name: RSpec
+  category: testing
+  description: "A unit test framework for the Ruby programming language. For details: https://github.com/rspec"
+  dependencies: null
+-
+  identifier: sidekiq
+  name: Sidekiq
+  category: background_job
+  description: "Simple, efficient background processing for Ruby. For details: https://github.com/mperham/sidekiq"
+  dependencies: null
+-
+  identifier: slim
+  name: Slim
+  category: template_engine
+  description: "Slim is a template language whose goal is to reduce the syntax to the essential parts without becoming cryptic. For details: https://github.com/slim-template/slim"
+  dependencies: null
+-
+  identifier: standart_rb
+  name: StandartRB
+  category: code_quality
+  description: " Ruby Style Guide, with linter & automatic code fixer. For details: https://github.com/testdouble/standard"
+  dependencies: null
