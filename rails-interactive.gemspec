@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/rails_interactive/version"
+require_relative "lib/cli/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rails-interactive"
-  spec.version       = RailsInteractive::VERSION
+  spec.version       = RailsInteractive::CLI::VERSION
   spec.authors       = ["Oguzhan Ince"]
   spec.email         = ["oguzhan824@gmail.com"]
 
@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "byebug", "~> 11.1.2"
   spec.add_development_dependency "colorize"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
