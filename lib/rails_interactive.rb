@@ -59,9 +59,9 @@ module RailsInteractive
       base = "rails new"
       cmd = ""
 
-      @inputs.first(3).each { |_key, value| cmd += "#{value} " }
+      @inputs.first(3).each { |_key, value| cmd += "#{value} " unless value.empty? }
 
-      "#{base} #{cmd} -q".strip!
+      "#{base} #{cmd} -q"
     end
 
     def create_project
@@ -69,24 +69,11 @@ module RailsInteractive
       system("bin/setup")
       # Create project
       system(setup)
-      #  Copy template files to project folder
-      Utils.copy_templates_to_project(@inputs[:name])
-      # Move to project folder and install gems
-      @inputs.each do |key, value|
-        next if %i[name type database].include?(key) || value.nil? || if value.is_a?(Array) && value.empty?
-
-                                                                        if value.is_a?(Array)
-                                                                          Utils.handle_multi_options(key.to_sym)
-                                                                        end
-                                                                        if value.is_a?(Hash)
-                                                                          Utils.handle_option(key.to_sym)
-                                                                        end
-                                                                      end
-
-        # Prepare project requirements and give instructions
-        Utils.sign_project
-        Message.prepare
-      end
+      # Install gems
+      intall_gems
+      # Prepare project requirements and give instructions
+      Utils.sign_project
+      Message.prepare
     end
 
     def create_command_list(commands, category_type)
@@ -104,6 +91,21 @@ module RailsInteractive
       end
 
       list
+    end
+
+    def intall_gems
+      # Copy template files to project folder
+      Utils.copy_templates_to_project(@inputs[:name])
+
+      @inputs.each do |key, value|
+        next if %i[name type database].include?(key) || value.is_a?(Array) && value.empty? || value.nil?
+
+        Utils.handle_multi_options(value) if value.is_a?(Array)
+        Utils.handle_option(value) if value.is_a?(String)
+      end
+
+      # Remove templates folder from project folder
+      Utils.remove_templates(@inputs[:name])
     end
 
     def name
