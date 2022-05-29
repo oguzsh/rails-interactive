@@ -17,3 +17,6 @@ Style/Documentation:
 
 Metrics/MethodLength:
   Max: 12
+
+Metrics/CyclomaticComplexity:
+  Max: 25
