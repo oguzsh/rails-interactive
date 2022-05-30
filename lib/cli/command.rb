@@ -21,7 +21,7 @@ module RailsInteractive
       def dependencies(identifier)
         command = find_by_identifier(identifier)
 
-        command[:dependencies]
+        command["dependencies"]
       end
     end
   end
