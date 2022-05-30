@@ -5,7 +5,7 @@ require "yaml"
 module RailsInteractive
   class CLI
     # Categories class for the interactive CLI module
-    class Categories
+    class Category
       def initialize
         @categories = YAML.load_file("#{__dir__}/config/categories.yml").uniq
       end
