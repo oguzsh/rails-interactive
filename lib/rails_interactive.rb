@@ -2,17 +2,19 @@
 
 require "cli/prompt"
 require "cli/message"
-require "cli/commands"
-require "cli/categories"
+require "cli/command"
+require "cli/category"
 require "cli/utils"
+require "cli/command_handler"
 
 module RailsInteractive
   # CLI class for the interactive CLI module
   class CLI
     def initialize
       @inputs = {}
-      @commands = Commands.new
-      @categories = Categories.new
+      @commands = Command.new
+      @categories = Category.new
+      @handler = CommandHandler.new
     end
 
     def perform(key)
@@ -100,8 +102,10 @@ module RailsInteractive
       @inputs.each do |key, value|
         next if %i[name type database].include?(key) || value.is_a?(Array) && value.empty? || value.nil?
 
-        Utils.handle_multi_options(value) if value.is_a?(Array)
-        Utils.handle_option(value) if value.is_a?(String)
+        dependencies = @commands.dependencies(value)
+
+        @handler.handle_multi_options(value, dependencies) if value.is_a?(Array)
+        @handler.handle_option(value, dependencies) if value.is_a?(String)
       end
 
       # Remove templates folder from project folder

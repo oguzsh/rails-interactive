@@ -1,4 +1,4 @@
-![render1647134864886](https://user-images.githubusercontent.com/15168877/158041125-2ba863cf-ab17-4c8e-a603-7ccb0494938b.gif)
+[![asciicast](https://asciinema.org/a/mFutWNTzym5aZPqK7AgBSMjLE.svg)](https://asciinema.org/a/mFutWNTzym5aZPqK7AgBSMjLE)
 
 # Rails::Interactive
 [![Gem Version](https://badge.fury.io/rb/rails-interactive.svg)](https://badge.fury.io/rb/rails-interactive)

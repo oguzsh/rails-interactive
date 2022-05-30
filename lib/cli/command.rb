@@ -5,7 +5,7 @@ require "yaml"
 module RailsInteractive
   class CLI
     # Commands class for the interactive CLI module
-    class Commands
+    class Command
       def initialize
         @commands = YAML.load_file("#{__dir__}/config/commands.yml").uniq
       end
@@ -16,6 +16,13 @@ module RailsInteractive
 
       def find_by_identifier(identifier)
         @commands.find { |command| command["identifier"] == identifier }
+      end
+
+      def dependencies(identifier)
+        identifier = identifier.is_a?(Array) ? identifier.join("") : identifier
+        command ||= find_by_identifier(identifier)
+
+        command["dependencies"]
       end
     end
   end
