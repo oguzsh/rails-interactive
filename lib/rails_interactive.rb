@@ -5,6 +5,7 @@ require "cli/message"
 require "cli/command"
 require "cli/category"
 require "cli/utils"
+require "cli/command_handler"
 
 module RailsInteractive
   # CLI class for the interactive CLI module
