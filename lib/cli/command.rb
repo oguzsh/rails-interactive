@@ -19,7 +19,8 @@ module RailsInteractive
       end
 
       def dependencies(identifier)
-        command = find_by_identifier(identifier)
+        identifier = identifier.is_a?(Array) ? identifier.join("") : identifier
+        command ||= find_by_identifier(identifier)
 
         command["dependencies"]
       end
