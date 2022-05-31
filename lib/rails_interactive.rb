@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
-require "rails_interactive/prompt"
-require "rails_interactive/message"
-require "fileutils"
+require "cli/prompt"
+require "cli/message"
+require "cli/command"
+require "cli/category"
+require "cli/utils"
+require "cli/command_handler"
 
 module RailsInteractive
   # CLI class for the interactive CLI module
   class CLI
     def initialize
       @inputs = {}
+      @commands = Command.new
+      @categories = Category.new
+      @handler = CommandHandler.new
     end
 
     def perform(key)
@@ -23,83 +29,102 @@ module RailsInteractive
       end
     end
 
+    private
+
+    def categories_with_commands
+      @categories.all.each do |category|
+        commands = []
+        @commands.all.each { |command| commands << command if command["category"] == category["name"] }
+        category["commands"] = commands
+      end
+    end
+
     def initialize_project
       name
       type
       database
-      features
-      code_quality_tool
-      admin_panel
 
-      create
-    end
+      categories_with_commands.each do |category|
+        category_name = category["name"]
+        category_type = category["type"]
+        category_command_list = create_command_list(category["commands"], category_type)
 
-    def create
-      # Install gems
-      system("bin/setup")
-      # Create project
-      system(setup)
-
-      copy_templates_to_project
-
-      # Move to project folder and install gems
-      Dir.chdir "./#{@inputs[:name]}"
-
-      @inputs[:features].each do |feature|
-        system("bin/rails app:template LOCATION=templates/setup_#{feature}.rb")
+        @inputs[category_name.to_sym] =
+          Prompt.new("Choose #{Utils.humanize(category_name)} gems: ", category_type.to_s,
+                     category_command_list).perform
       end
 
-      # Code Quality Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:code_quality_tool]}.rb")
-
-      # Admin Panel Template
-      system("bin/rails app:template LOCATION=templates/setup_#{@inputs[:admin_panel]}.rb")
-
-      # Prepare project requirements and give instructions
-      Message.prepare
+      create_project
     end
 
     def setup
       base = "rails new"
       cmd = ""
 
-      @inputs.first(3).each { |_key, value| cmd += "#{value} " }
+      @inputs.first(3).each { |_key, value| cmd += "#{value} " unless value.empty? }
 
-      "#{base} #{cmd}".strip!
+      "#{base} #{cmd} -q"
     end
 
-    def copy_templates_to_project
-      FileUtils.cp_r "#{__dir__}/rails_interactive/templates", "./#{@inputs[:name]}"
+    def create_project
+      # Install gems
+      system("bin/setup")
+      # Create project
+      system(setup)
+      # Install gems
+      intall_gems
+      # Prepare project requirements and give instructions
+      Utils.sign_project
+      Message.prepare
     end
 
-    private
+    def create_command_list(commands, category_type)
+      return nil if commands.nil? || category_type.nil?
+
+      list = category_type == "select" ? {} : []
+
+      commands.each do |command|
+        if list.is_a?(Hash)
+          list["None"] = nil
+          list[command["name"]] = command["identifier"]
+        else
+          list << command["identifier"]
+        end
+      end
+
+      list
+    end
+
+    def intall_gems
+      # Copy template files to project folder
+      Utils.copy_templates_to_project(@inputs[:name])
+
+      @inputs.each do |key, value|
+        next if %i[name type database].include?(key) || value.is_a?(Array) && value.empty? || value.nil?
+
+        dependencies = @commands.dependencies(value)
+
+        @handler.handle_multi_options(value, dependencies) if value.is_a?(Array)
+        @handler.handle_option(value, dependencies) if value.is_a?(String)
+      end
+
+      # Remove templates folder from project folder
+      Utils.remove_templates(@inputs[:name])
+    end
 
     def name
-      @inputs[:name] = Prompt.new("Enter the name of the project: ", "ask", required: true).perform
+      @inputs[:name] = Prompt.new("Project name: ", "ask", required: true).perform
     end
 
     def type
-      types = { "App" => "", "API" => "--api" }
-      @inputs[:type] = Prompt.new("Choose project type: ", "select", types, required: true).perform
+      types = { "App" => "", "Api" => "--api" }
+      @inputs[:type] = Prompt.new("Type: ", "select", types, required: true).perform
     end
 
     def database
       database_types = { "PostgreSQL" => "-d postgresql", "MySQL" => "-d mysql", "SQLite" => "" }
 
-      @inputs[:database] = Prompt.new("Choose project's database: ", "select", database_types, required: true).perform
-    end
-
-    def features
-      features = %w[devise cancancan omniauth pundit brakeman sidekiq]
-
-      @inputs[:features] = Prompt.new("Choose project features: ", "multi_select", features).perform
-    end
-
-    def code_quality_tool
-      code_quality_tool = { "Rubocop" => "rubocop", "StandardRB" => "standardrb" }
-
-      @inputs[:code_quality_tool] =
-        Prompt.new("Choose project code quality tool: ", "select", code_quality_tool).perform
+      @inputs[:database] = Prompt.new("Database: ", "select", database_types, required: true).perform
     end
 
     def admin_panel
