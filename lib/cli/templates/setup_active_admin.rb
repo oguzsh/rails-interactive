@@ -6,7 +6,6 @@ def active_admin_install_without_devise
 end
 
 def active_admin_install_with_devise
-  system("bin/rails app:template LOCATION=templates/setup_devise.rb")
   rails_command "generate active_admin:install"
 end
 
