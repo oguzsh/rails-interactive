@@ -138,4 +138,4 @@
   category: admin_panel
   description: "The administration framework for Ruby on Rails applications. For details: https://github.com/activeadmin/activeadmin"
   dependencies:
-    - sassc-rails
+    - sassc_rails
