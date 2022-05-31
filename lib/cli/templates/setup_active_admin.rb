@@ -15,8 +15,8 @@ run "bundle add bcrypt"
 Bundler.with_unbundled_env { run "bundle" }
 
 if !defined?(Devise)
-  active_admin_install_with_devise
-else
   active_admin_install_without_devise
+else
+  active_admin_install_with_devise
 end
 rails_command "db:migrate"
