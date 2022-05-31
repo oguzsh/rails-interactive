@@ -126,5 +126,12 @@ module RailsInteractive
 
       @inputs[:database] = Prompt.new("Database: ", "select", database_types, required: true).perform
     end
+
+    def admin_panel
+      admin_panel = { "ActiveAdmin" => "active_admin" }
+
+      @inputs[:admin_panel] =
+        Prompt.new("Choose project admin panel: ", "select", admin_panel).perform
+    end
   end
 end
