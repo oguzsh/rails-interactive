@@ -126,3 +126,16 @@
   category: code_quality
   description: " Ruby Style Guide, with linter & automatic code fixer. For details: https://github.com/testdouble/standard"
   dependencies: null
+-
+  identifier: sassc_rails
+  name: Saasc Rails
+  category: development
+  description: "Integrate SassC-Ruby with Rails! For details: https://github.com/sass/sassc-rails"
+  dependencies: null
+-
+  identifier: active_admin
+  name: ActiveAdmin
+  category: admin_panel
+  description: "The administration framework for Ruby on Rails applications. For details: https://github.com/activeadmin/activeadmin"
+  dependencies:
+    - sassc-rails
