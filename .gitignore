@@ -16,3 +16,4 @@ mkmf.log
 *.gem
 # rspec failure tracking
 .rspec_status
+.idea

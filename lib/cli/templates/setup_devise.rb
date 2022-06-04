@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+run "bundle add devise"
+Bundler.with_unbundled_env { run "bundle install" }
+
+rails_command "generate devise:install"
+
+run "rails generate devise User"
+run "rails db:prepare"
+run "rails db:migrate"
