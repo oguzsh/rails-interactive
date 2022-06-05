@@ -15,37 +15,42 @@
     type: "select"
     required: false
 -
-    name: template_engine
+    name: end_to_end_testing
     weight: 4
     type: "select"
     required: false
 -
-    name: code_quality
+    name: template_engine
     weight: 5
     type: "select"
     required: false
 -
-    name: background_job
+    name: code_quality
     weight: 6
     type: "select"
     required: false
 -
-    name: security
+    name: background_job
     weight: 7
     type: "select"
     required: false
 -
-    name: admin_panel
+    name: security
     weight: 8
     type: "select"
     required: false
 -
-    name: features
+    name: admin_panel
     weight: 9
+    type: "select"
+    required: false
+-
+    name: features
+    weight: 10
     type: "multi_select"
     required: false
 -
     name: development
-    weight: 10
+    weight: 11
     type: "multi_select"
     required: false
