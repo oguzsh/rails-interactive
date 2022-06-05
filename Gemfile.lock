@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails-interactive (2.1.0)
+    rails-interactive (2.1.1)
       tty-prompt
 
 GEM
