@@ -25,7 +25,7 @@
     type: "select"
     required: false
 -
-    name: code_quality
+    name: frontend
     weight: 6
     type: "select"
     required: false
@@ -35,22 +35,27 @@
     type: "select"
     required: false
 -
-    name: security
+    name: code_quality
     weight: 8
     type: "select"
     required: false
 -
-    name: admin_panel
+    name: security
     weight: 9
     type: "select"
     required: false
 -
-    name: features
+    name: admin_panel
     weight: 10
+    type: "select"
+    required: false
+-
+    name: features
+    weight: 11
     type: "multi_select"
     required: false
 -
     name: development
-    weight: 11
+    weight: 12
     type: "multi_select"
     required: false
