@@ -146,3 +146,9 @@
   category: testing
   description: "minitest provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking. For details: https://github.com/minitest/minitest"
   dependencies: null
+-
+  identifier: capybara
+  name: Capybara
+  category: end_to_end_testing
+  description: "Acceptance test framework for web applications. For details: https://github.com/teamcapybara/capybara"
+  dependencies: null
