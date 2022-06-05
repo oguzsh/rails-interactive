@@ -63,5 +63,6 @@ file "app/controllers/omniauth_controller.rb", <<~CODE
 
   end
 CODE
-
+# rubocop:disable Layout/LineLength
 puts "IMPORTANT: Add devise_for :#{devise_model_name}s, controllers: { omniauth_callbacks: 'omniauth' } to your routes.rb"
+# rubocop:enable Layout/LineLength
