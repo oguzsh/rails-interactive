@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "fileutils"
 
 run "bundle add omniauth"
@@ -28,7 +29,8 @@ inject_into_file "app/models/identity.rb", after: "belongs_to :#{devise_model_na
   ", counter_cache: true"
 end
 
-inject_into_file "app/models/#{devise_model_name}.rb", after: "class #{devise_model_name.capitalize} < ApplicationRecord\n" do
+inject_into_file "app/models/#{devise_model_name}.rb",
+                 after: "class #{devise_model_name.capitalize} < ApplicationRecord\n" do
   # rubocop:disable Naming/HeredocDelimiterNaming
   <<-EOF
   has_many :identities, dependent: :destroy
