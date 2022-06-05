@@ -63,7 +63,7 @@ module RailsInteractive
 
       @inputs.first(3).each { |_key, value| cmd += "#{value} " unless value.empty? }
 
-      "#{base} #{cmd} -q"
+      "#{base} #{cmd} -q --skip-hotwire"
     end
 
     def create_project
