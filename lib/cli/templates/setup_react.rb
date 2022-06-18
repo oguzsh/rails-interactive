@@ -13,6 +13,7 @@ run "echo 'web: bin/rails server -p 3000\njs: yarn build --watch' > Procfile.dev
 # Component Helper from Ruby on Rails
 inject_into_file "app/helpers/application_helper.rb", after: "module ApplicationHelper" do
   <<~RB
+
     def react_component(component_name, **props)
       tag.div(data: {
                 react_component: component_name,
@@ -23,8 +24,9 @@ inject_into_file "app/helpers/application_helper.rb", after: "module Application
 end
 
 # Include JS to application.html.erb
-inject_into_file "app/views/layouts/application.html.erb", after: "<%= stylesheet_link_tag 'application' %>" do
+inject_into_file "app/views/layouts/application.html.erb", after: "<%= javascript_importmap_tags %>" do
   <<~ERB
+
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   ERB
 end
@@ -32,6 +34,7 @@ end
 # Component Mounter for JS
 create_file "app/javascript/mount.js" do
   <<~JAVASCRIPT
+
     import React from 'react';
     import ReactDOM from 'react-dom';
     
@@ -54,6 +57,7 @@ end
 # Example React Component
 create_file "app/javascript/components/hello.jsx" do
   <<~JAVASCRIPT
+
     import React from "react";
     
     const Hello = () => <div>HELLO WORLD!</div>
@@ -65,6 +69,7 @@ end
 # Application JS file update
 inject_into_file "app/javascript/application.js", after: "// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails" do
   <<~JAVASCRIPT
+
     // Components
     import Hello from "./components/hello"
     
@@ -82,6 +87,7 @@ run "yarn build"
 rails_command "g controller Home index"
 inject_into_file "app/views/home/index.html.erb", after: "<p>Find me in app/views/home/index.html.erb</p>" do
   <<~ERB
+
     <%= react_component "Hello" %>
   ERB
 end
