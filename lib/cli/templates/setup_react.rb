@@ -80,7 +80,7 @@ run "yarn build"
 
 # Example Page for Component Test
 rails_command "g controller Home index"
-inject_into_file "app/views/layouts/home/index.html.erb", after: "<p>Find me in app/views/home/index.html.erb</p>" do
+inject_into_file "app/views/home/index.html.erb", after: "<p>Find me in app/views/home/index.html.erb</p>" do
   <<~ERB
     <%= react_component "Hello" %>
   ERB
