@@ -11,7 +11,7 @@ run 'echo "#!/usr/bin/env bash\nforeman start -f Procfile.dev "$@"" > bin/dev'
 run "echo 'web: bin/rails server -p 3000\njs: yarn build --watch' > Procfile.dev"
 
 # Component Helper from Ruby on Rails
-inject_into_file "helpers/application_helper.rb", after: "module ApplicationHelper" do
+inject_into_file "app/helpers/application_helper.rb", after: "module ApplicationHelper" do
   <<~RB
     def react_component(component_name, **props)
       tag.div(data: {
@@ -23,14 +23,14 @@ inject_into_file "helpers/application_helper.rb", after: "module ApplicationHelp
 end
 
 # Include JS to application.html.erb
-inject_into_file "views/layouts/application.html.erb", after: "<%= stylesheet_link_tag 'application' %>" do
+inject_into_file "app/views/layouts/application.html.erb", after: "<%= stylesheet_link_tag 'application' %>" do
   <<~ERB
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   ERB
 end
 
 # Component Mounter for JS
-create_file "javascript/mount.js" do
+create_file "app/javascript/mount.js" do
   <<~JAVASCRIPT
     import React from 'react';
     import ReactDOM from 'react-dom';
@@ -52,7 +52,7 @@ create_file "javascript/mount.js" do
 end
 
 # Example React Component
-create_file "javascript/components/hello.jsx" do
+create_file "app/javascript/components/hello.jsx" do
   <<~JAVASCRIPT
     import React from "react";
     
@@ -63,7 +63,7 @@ create_file "javascript/components/hello.jsx" do
 end
 
 # Application JS file update
-inject_into_file "javascript/application.js", after: "// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails" do
+inject_into_file "app/javascript/application.js", after: "// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails" do
   <<~JAVASCRIPT
     // Components
     import Hello from "./components/hello"
@@ -80,7 +80,7 @@ run "yarn build"
 
 # Example Page for Component Test
 rails_command "g controller Home index"
-inject_into_file "views/layouts/home/index.html.erb", after: "<p>Find me in app/views/home/index.html.erb</p>" do
+inject_into_file "app/views/layouts/home/index.html.erb", after: "<p>Find me in app/views/home/index.html.erb</p>" do
   <<~ERB
     <%= react_component "Hello" %>
   ERB

@@ -72,7 +72,7 @@ module RailsInteractive
       # Create project
       system(setup)
       # Install gems
-      intall_gems
+      install_gems
       # Prepare project requirements and give instructions
       Utils.sign_project
       Message.prepare
@@ -95,7 +95,7 @@ module RailsInteractive
       list
     end
 
-    def intall_gems
+    def install_gems
       # Copy template files to project folder
       Utils.copy_templates_to_project(@inputs[:name])
 
