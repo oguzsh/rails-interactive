@@ -108,6 +108,9 @@ module RailsInteractive
         @handler.handle_option(value, dependencies) if value.is_a?(String)
       end
 
+      # Prepare database for project everytime
+      system("bin/rails db:prepare")
+
       # Remove templates folder from project folder
       Utils.remove_templates(@inputs[:name])
     end
