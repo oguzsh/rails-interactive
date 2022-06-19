@@ -164,3 +164,9 @@
   category: frontend
   description: "A declarative, efficient, and flexible JavaScript library for building user interfaces. For details: https://github.com/facebook/react/"
   dependencies: null
+-
+  identifier: tailwind
+  name: Tailwind
+  category: css_framework
+  description: "A utility-first CSS framework for rapid UI development. For details: https://github.com/tailwindlabs/tailwindcss"
+  dependencies: null
