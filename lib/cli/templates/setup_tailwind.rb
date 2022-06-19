@@ -12,10 +12,14 @@ end
 
 run "bundle add tailwindcss-rails"
 
-run "rm Procfile.dev" if package?("react")
+if package?("react")
+  run "rm Procfile.dev"
+  run "rm bin/dev"
+end
 
 rails_command "tailwindcss:install"
 
 if package?("react")
+  run "rm Procfile.dev"
   run "echo 'web: bin/rails server -p 3000\njs: yarn build --watch\ncss: bin/rails tailwindcss:watch > Procfile.dev"
 end
