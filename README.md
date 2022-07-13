@@ -1,34 +1,69 @@
-[![asciicast](https://asciinema.org/a/mFutWNTzym5aZPqK7AgBSMjLE.svg)](https://asciinema.org/a/mFutWNTzym5aZPqK7AgBSMjLE)
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg" width=40 height=40/>
+  <h1>Rails Interactive</h1>  
+  
+</div>
+  
+<p align="center">
+    Rails Interactive is a CLI for Rails 7. Developers can create their Ruby on Rails projects with just a few keyboard clicks 🎉
+    <br />
+    <br />
+    ·
+    <a href="https://github.com/oguzsh/rails-interactive/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/oguzsh/rails-interactive/issues">Request Feature</a>
+  </p>
+</div>
 
-# Rails::Interactive
-[![Gem Version](https://badge.fury.io/rb/rails-interactive.svg)](https://badge.fury.io/rb/rails-interactive)
+<div align="center">
+  
+  [![Gem Version](https://badge.fury.io/rb/rails-interactive.svg)](https://badge.fury.io/rb/rails-interactive)
+  
+</div>
 
-## Installation
+
+### ⚡️ Prerequisites
+
+- Ruby >= 2.7.5
+
+## ⚙️ Installation
+Make sure you have Ruby installed ([Ruby Homebrew](https://formulae.brew.sh/formula/ruby)). Version 2.7.5 or higher is required.
 
 ```bash
 $ gem install rails-interactive
 ```
 
-## Usage
+## 💡 Usage
 
 ```bash
 $ rails-interactive new
 ```
+![demo](https://user-images.githubusercontent.com/15168877/178847614-56434964-c304-4e46-acb8-3279023e4ba6.gif)
 
-## Development
+## 👍 Contributing
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Contributing
+## ☕ Supporters
+Rails Interactive is an open source project that get motivate on donations 🥳 If you want to support Rails Interactive, you can ☕ buy a coffee [here](https://www.buymeacoffee.com/oguzhanince) or be patron on [Patreon](https://patreon.com/oguzsh)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/oguzsh/rails-interactive. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/oguzsh/rails-interactive/blob/master/CODE_OF_CONDUCT.md).
+|                         	|  User 	| Donation 	|
+|-------------------------	|------:	|---------:	|
+| <img src="https://github.com/sahin.png?size=20">              	| [@sahin](https://github.com/sahin) 	|    Gold Sponsor 	|
+|<img src="https://github.com/sadikay.png?size=20">	| [@sadikay](https://github.com/sadikay) 	|  Silver Sponsor |
+| <img src="https://github.com/adamdilek.png?size=20">         	| [@adamdilek](https://github.com/adamdilek) 	|    Silver Sponsor 	|
 
-## License
+## ⚠️ License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-## Code of Conduct
+## Contact
 
-Everyone interacting in the Rails::Interactive project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/oguzsh/rails-interactive/blob/master/CODE_OF_CONDUCT.md).
+Oguzhan Ince - [@oguz_sh](https://twitter.com/oguz_sh) - oguzhan824@gmail.com
