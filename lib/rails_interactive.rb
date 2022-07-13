@@ -63,7 +63,7 @@ module RailsInteractive
 
       @inputs.first(3).each { |_key, value| cmd += "#{value} " unless value.empty? }
 
-      "#{base} #{cmd} -q"
+      "#{base} #{cmd} -q --skip-hotwire"
     end
 
     def create_project
@@ -72,7 +72,7 @@ module RailsInteractive
       # Create project
       system(setup)
       # Install gems
-      intall_gems
+      install_gems
       # Prepare project requirements and give instructions
       Utils.sign_project
       Message.prepare
@@ -95,18 +95,20 @@ module RailsInteractive
       list
     end
 
-    def intall_gems
+    def install_gems
       # Copy template files to project folder
       Utils.copy_templates_to_project(@inputs[:name])
 
       @inputs.each do |key, value|
         next if %i[name type database].include?(key) || value.is_a?(Array) && value.empty? || value.nil?
 
-        dependencies = @commands.dependencies(value)
-
+        dependencies ||= @commands.dependencies(value)
         @handler.handle_multi_options(value, dependencies) if value.is_a?(Array)
         @handler.handle_option(value, dependencies) if value.is_a?(String)
       end
+
+      # Prepare database for project everytime
+      system("bin/rails db:prepare")
 
       # Remove templates folder from project folder
       Utils.remove_templates(@inputs[:name])

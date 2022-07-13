@@ -152,3 +152,21 @@
   category: end_to_end_testing
   description: "Acceptance test framework for web applications. For details: https://github.com/teamcapybara/capybara"
   dependencies: null
+-
+  identifier: stimulus
+  name: StimulusJS
+  category: frontend
+  description: "A modest JavaScript framework for the HTML you already have. For details: https://github.com/hotwired/stimulus"
+  dependencies: null
+-
+  identifier: react
+  name: ReactJS
+  category: frontend
+  description: "A declarative, efficient, and flexible JavaScript library for building user interfaces. For details: https://github.com/facebook/react/"
+  dependencies: null
+-
+  identifier: tailwind
+  name: Tailwind
+  category: css_framework
+  description: "A utility-first CSS framework for rapid UI development. For details: https://github.com/tailwindlabs/tailwindcss"
+  dependencies: null
