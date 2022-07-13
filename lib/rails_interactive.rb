@@ -102,8 +102,7 @@ module RailsInteractive
       @inputs.each do |key, value|
         next if %i[name type database].include?(key) || value.is_a?(Array) && value.empty? || value.nil?
 
-        dependencies = @commands.dependencies(value)
-
+        dependencies ||= @commands.dependencies(value)
         @handler.handle_multi_options(value, dependencies) if value.is_a?(Array)
         @handler.handle_option(value, dependencies) if value.is_a?(String)
       end
