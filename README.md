@@ -19,6 +19,7 @@
   
   [![Gem Version](https://badge.fury.io/rb/rails-interactive.svg)](https://badge.fury.io/rb/rails-interactive)
   
+  <a href="https://www.producthunt.com/posts/rails-interactive?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-rails&#0045;interactive" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=353636&theme=light" alt="Rails&#0032;Interactive - &#0032;Quick&#0032;way&#0032;to&#0032;create&#0032;projects&#0032;with&#0032;Ruby&#0032;on&#0032;Rails&#0032;⚡️&#0032; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </div>
 
 
